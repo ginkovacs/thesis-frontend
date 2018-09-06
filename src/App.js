@@ -1,37 +1,65 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AddForm from './AddForm';
+
 
 class App extends Component {
 
     constructor(props){
         super(props);
-
+        this.state={elist:[],}
         this.restHost = 'http://localhost:8080/rest';
         this.customersList = [];
+        this.myList = [];
     }
 
     componentDidMount() {
         fetch(this.restHost + '/customer/findAll')
-            .then(response => response.json())
+            .then(results => results.json())
             .then(data => {
                     for(let cust of data) {
                         this.customersList.push(cust);
-                        console.log(cust);}
+                        for(let i=0; i<this.customersList.length; i++) {
+                            this.myList.push({
+                                listid: this.customersList[i].id, firstname: this.customersList[i].firstName,
+                                lastname: this.customersList[i].lastName
+                            });
+                        }
                     }
-                );
-    }
+                    this.setState({elist:this.myList});
+                })
+            .catch(function(error) {
+                console.log(error)});
+        }
 
     render() {
+
         return (
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1 className="App-title">Welcome to HELL</h1>
-            </header>
-            <p className="App-intro">
-            </p>
-          </div>
+            <div className="root">
+                <div className="App">
+                    <header className="App-header">
+                        <img src={logo} className="App-logo" alt="logo" />
+                        <h1 className="App-title">Welcome to HELL</h1>
+                    </header>
+                    <p className="App-intro">
+                    </p>
+                </div>
+
+                <div>
+                    <AddForm />
+                    <table>
+                        {this.state.elist.map(item =>
+                            <tr>
+                                <td>{item.listid}</td>
+                                <td>{item.firstname}</td>
+                                <td>{item.lastname}</td>
+                            </tr>
+                        )}
+                    </table>
+                </div>
+            </div>
+
         );
     }
 }
