@@ -25,7 +25,8 @@ class AddForm extends Component {
         this.setState({lnameval: event.target.value})
     }
 
-   addname = () => {
+   addname = (event) => {
+        event.preventDefault()
         this.fname = this.state.fnameval;
         this.lname = this.state.lnameval;
 
@@ -34,8 +35,7 @@ class AddForm extends Component {
             .set('Content-Type', 'application/json')
             .send({firstName: this.fname, lastName: this.lname})
             .then(console.log("mindenfasza"))
-            .catch(function(error) {
-                console.log(error)});
+            .catch(error => console.log(error));
     }
 
     render() {
@@ -52,5 +52,3 @@ class AddForm extends Component {
 }
 
 export default AddForm;
-
-//.catch(error => console.log(error));

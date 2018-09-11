@@ -15,6 +15,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.setState({elist: []});
         fetch(this.restHost + '/customer/findAll')
             .then(results => results.json())
             .then(data => {
