@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import AddForm from './AddForm';
+import DeleteForm from './DeleteForm';
 
+export const refreshPage = () => {
+    window.location.reload();
+}
 
 class App extends Component {
 
@@ -16,6 +20,7 @@ class App extends Component {
 
     componentDidMount() {
         this.setState({elist: []});
+        this.myList.length=0;
         fetch(this.restHost + '/customer/findAll')
             .then(results => results.json())
             .then(data => {
@@ -55,6 +60,7 @@ class App extends Component {
                                 <td>{item.listid}</td>
                                 <td>{item.firstname}</td>
                                 <td>{item.lastname}</td>
+                                <td><DeleteForm idToDel={item.listid}/></td>
                             </tr>
                         )}
                     </table>

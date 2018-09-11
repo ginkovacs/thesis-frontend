@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
+import {refreshPage} from "./App";
 
 class AddForm extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class AddForm extends Component {
     }
 
    addname = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         this.fname = this.state.fnameval;
         this.lname = this.state.lnameval;
 
@@ -36,6 +37,9 @@ class AddForm extends Component {
             .send({firstName: this.fname, lastName: this.lname})
             .then(console.log("mindenfasza"))
             .catch(error => console.log(error));
+
+       refreshPage();
+
     }
 
     render() {
