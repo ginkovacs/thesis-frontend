@@ -6,7 +6,9 @@
     "axios": "^0.18.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-popupbox": "^2.0.8",
     "react-scripts": "1.1.4",
+    "reactjs-popup": "^1.2.0",
     "superagent": "^3.8.3"
   },
   "scripts": {

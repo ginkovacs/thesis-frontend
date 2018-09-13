@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import AddForm from './AddForm';
-import DeleteForm from './DeleteForm';
+import Popup from './Popup';
 
 export const refreshPage = () => {
     window.location.reload();
@@ -60,7 +60,7 @@ class App extends Component {
                                 <td>{item.listid}</td>
                                 <td>{item.firstname}</td>
                                 <td>{item.lastname}</td>
-                                <td><DeleteForm idToDel={item.listid}/></td>
+                                <td><button>X</button></td>
                             </tr>
                         )}
                     </table>
@@ -72,3 +72,7 @@ class App extends Component {
 }
 
 export default App;
+
+/*
+<td><DeleteForm idToDel={item.listid}/></td>
+ */
