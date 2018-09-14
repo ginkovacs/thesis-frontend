@@ -63,7 +63,7 @@ class App extends Component {
                                 <td>{item.firstname}</td>
                                 <td>{item.lastname}</td>
                                 <td>
-                                    <DeletePopup/>
+                                    <DeletePopup idToDel={item.listid}/>
                                 </td>
                             </tr>
                         )}
@@ -76,7 +76,3 @@ class App extends Component {
 }
 
 export default App;
-
-/*
-<td><DeleteForm idToDel={item.listid}/></td>
- */

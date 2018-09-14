@@ -24,9 +24,9 @@ class DeleteForm extends Component {
 
     render () {
         return (
-            <form>
-                <button onClick={this.deleteHandler.bind(this)}>X</button>
-            </form>
+            <div>
+                <button onClick={this.deleteHandler.bind(this)}>Yes</button>
+            </div>
         )
     }
 }
