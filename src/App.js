@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import AddForm from './AddForm';
-import Popup from './Popup';
+import DeletePopup from './DeletePopup';
 
 export const refreshPage = () => {
     window.location.reload();
@@ -17,6 +17,7 @@ class App extends Component {
         this.customersList = [];
         this.myList = [];
     }
+
 
     componentDidMount() {
         this.setState({elist: []});
@@ -54,13 +55,16 @@ class App extends Component {
 
                 <div>
                     <AddForm />
+
                     <table>
                         {this.state.elist.map(item =>
                             <tr>
                                 <td>{item.listid}</td>
                                 <td>{item.firstname}</td>
                                 <td>{item.lastname}</td>
-                                <td><button>X</button></td>
+                                <td>
+                                    <DeletePopup/>
+                                </td>
                             </tr>
                         )}
                     </table>
