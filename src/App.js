@@ -1,78 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import AddForm from './AddForm';
-import DeletePopup from './DeletePopup';
+// Styles
+// Import Font Awesome Icons Set
+import 'font-awesome/css/font-awesome.min.css';
+// Import Main styles for this application
+import './scss/style.scss'
 
-export const refreshPage = () => {
-    window.location.reload();
-}
+// Containers
+import { DefaultLayout } from './containers';
+// Pages
+import { Login, Page404, Page500, Register } from './views/Pages';
 
 class App extends Component {
-
-    constructor(props){
-        super(props);
-        this.state={elist:[],}
-        this.restHost = 'http://localhost:8080/rest';
-        this.customersList = [];
-        this.myList = [];
-    }
-
-
-    componentDidMount() {
-        this.setState({elist: []});
-        this.myList.length=0;
-        fetch(this.restHost + '/customer/findAll')
-            .then(results => results.json())
-            .then(data => {
-                    for(let cust of data) {
-                        this.customersList.push(cust);
-                        for(let i=0; i<this.customersList.length; i++) {
-                            this.myList.push({
-                                listid: this.customersList[i].id, firstname: this.customersList[i].firstName,
-                                lastname: this.customersList[i].lastName
-                            });
-                        }
-                    }
-                    this.setState({elist:this.myList});
-                })
-            .catch(function(error) {
-                console.log(error)});
-        }
-
-    render() {
-
-        return (
-            <div className="root">
-                <div className="App">
-                    <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <h1 className="App-title">Welcome to HELL</h1>
-                    </header>
-                    <p className="App-intro">
-                    </p>
-                </div>
-
-                <div>
-                    <AddForm />
-
-                    <table>
-                        {this.state.elist.map(item =>
-                            <tr>
-                                <td>{item.listid}</td>
-                                <td>{item.firstname}</td>
-                                <td>{item.lastname}</td>
-                                <td>
-                                    <DeletePopup idToDel={item.listid}/>
-                                </td>
-                            </tr>
-                        )}
-                    </table>
-                </div>
-            </div>
-
-        );
-    }
+  render() {
+    return (
+        <BrowserRouter>
+            <Switch>
+              <Route exact path="/" name="Home" component={DefaultLayout} />
+              <Route path="/login" name="Login Page" component={Login} />
+              <Route exact path="/register" name="Register Page" component={Register} />
+              <Route exact path="/404" name="Page 404" component={Page404} />
+              <Route exact path="/500" name="Page 500" component={Page500} />
+            </Switch>
+        </BrowserRouter>
+    );
+  }
 }
 
 export default App;

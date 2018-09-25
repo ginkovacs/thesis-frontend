@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import {refreshPage} from "./App";
 
 class AddForm extends Component {
     constructor(props) {
@@ -35,11 +34,7 @@ class AddForm extends Component {
             .post(this.restHost + this.addHost)
             .set('Content-Type', 'application/json')
             .send({firstName: this.fname, lastName: this.lname})
-            .then(console.log("mindenfasza"))
             .catch(error => console.log(error));
-
-       refreshPage();
-
     }
 
     render() {

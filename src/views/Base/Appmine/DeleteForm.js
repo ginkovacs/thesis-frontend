@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import {refreshPage} from "./App";
 
 class DeleteForm extends Component {
     constructor (props) {
@@ -19,7 +18,6 @@ class DeleteForm extends Component {
             .del(this.restHost + this.deleteHost)
             .send({ id: this.id })
             .catch(error => console.log(error));
-        refreshPage();
     }
 
     render () {
