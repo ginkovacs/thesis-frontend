@@ -30,9 +30,9 @@ class Appmine extends Component {
                 console.log(error)});
         }
 
-        onclickHandler = () => {
+        /*onclickHandler = () => {
             this.setState({redirect: true});
-        }
+        }*/
 
     render() {
         if (this.state.redirect) {
@@ -51,7 +51,7 @@ class Appmine extends Component {
                 </div>
 
                 <div>
-                    <button onClick={this.onclickHandler} type="button"> Killmepls </button>
+                    {/*<button onClick={this.onclickHandler} type="button"> Killmepls </button>*/}
                     <AddForm />
 
                     <table>

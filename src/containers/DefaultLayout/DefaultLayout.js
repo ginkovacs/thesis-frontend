@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import Appmine from "../../views/Base/Appmine";
+import Login from "../../views/Pages/Login";
 
 class DefaultLayout extends Component {
   render() {
@@ -11,8 +11,7 @@ class DefaultLayout extends Component {
           <main className="main">
             <Container fluid>
               <Switch>
-                  <Route exact path="/" name='Base' component={Appmine} />
-                  <Route path="/App" name='Base' component={Appmine} />
+                  <Route exact path="/" name='Login' component={Login} />
               </Switch>
             </Container>
           </main>

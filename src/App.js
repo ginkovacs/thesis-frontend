@@ -11,6 +11,7 @@ import './scss/style.scss'
 import { DefaultLayout } from './containers';
 // Pages
 import { Login, Page404, Page500, Register } from './views/Pages';
+import Appmine from "./views/Base/Appmine";
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
               <Route exact path="/register" name="Register Page" component={Register} />
               <Route exact path="/404" name="Page 404" component={Page404} />
               <Route exact path="/500" name="Page 500" component={Page500} />
+              <Route exact path="/App" name='Base' component={Appmine} />
             </Switch>
         </BrowserRouter>
     );
