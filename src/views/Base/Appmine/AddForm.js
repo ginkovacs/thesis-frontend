@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
+import {Form} from 'reactstrap';
 
 class AddForm extends Component {
     constructor(props) {
@@ -39,13 +40,13 @@ class AddForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.addname}>
+            <Form onSubmit={this.addname}>
                 <label>
                     <input type="text" placeholder="first name" value={this.state.fnameval} onChange={this.fnameChange} />
                     <input type="text" placeholder="last name" value={this.state.lnameval} onChange={this.lnameChange} />
                 </label>
                 <button type="submit">Add</button>
-            </form>
+            </Form>
         )
     }
 }

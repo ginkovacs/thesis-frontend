@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import React from 'react';
+import { Button, Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Form, Row } from 'reactstrap';
 import request from "superagent";
+import RegSuccessModal from './RegSuccessModal';
 
-class Register extends Component {
+class Register extends RegSuccessModal {
 
     constructor(props) {
         super(props);
@@ -11,39 +12,63 @@ class Register extends Component {
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
+            confirmPw: ''
         }
 
         this.username = '';
         this.email = '';
         this.password = '';
+        this.confirmPw = '';
+
+        this.toggle = this.toggle.bind(this);
+        this.modal = false;
     }
 
-    usernameChange = (event) => {
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
+
+    usernameChange(event) {
         this.setState({username: event.target.value});
     }
 
-    emailChange = (event) => {
+    emailChange(event) {
         this.setState({email: event.target.value});
     }
 
-    passwordChange = (event) => {
+    passwordChange(event) {
         this.setState({password: event.target.value});
+    }
+
+    confirmPwChange(event) {
+        this.setState({confirmPw: event.target.value});
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.username = this.state.username;
         this.email = this.state.email;
-        this.password = this.state.password
+        this.password = this.state.password;
+        this.confirmPw = this.state.confirmPw;
 
-        request
-            .post(this.restHost + '/register')
-            .set('Content-Type', 'application/json')
-            .send({email: this.username,
+        if (this.password !== this.confirmPw) {
+            alert("Passwords don't match");
+        }
+        else {
+            request
+                .post(this.restHost + '/register')
+                .set('Content-Type', 'application/json')
+                .send({
+                    email: this.username,
                     username: this.username,
-                    password: this.password})
-            .catch(error => console.log(error));
+                    password: this.password
+                })
+                .catch(error => console.log(error));
+            this.toggle();
+        }
     }
 
     render() {
@@ -54,7 +79,7 @@ class Register extends Component {
                         <Col md="6">
                             <Card className="mx-4">
                                 <CardBody className="p-4">
-                                    <form onSubmit={this.handleSubmit}>
+                                    <Form onSubmit={this.handleSubmit}>
                                         <h1>Register</h1>
                                         <p className="text-muted">Create your account</p>
                                         <InputGroup className="mb-3">
@@ -64,7 +89,7 @@ class Register extends Component {
                                                 </InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="text" placeholder="Username" autoComplete="username"
-                                                    value={this.state.username} onChange={this.usernameChange()}/>
+                                                    value={this.state.username} onChange={this.usernameChange.bind(this)}/>
                                         </InputGroup>
 
                                         <InputGroup className="mb-3">
@@ -72,7 +97,7 @@ class Register extends Component {
                                                 <InputGroupText>@</InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="text" placeholder="Email" autoComplete="email"
-                                                   value={this.state.email} onChange={this.emailChange()}/>
+                                                   value={this.state.email} onChange={this.emailChange.bind(this)}/>
                                         </InputGroup>
 
                                         <InputGroup className="mb-3">
@@ -82,7 +107,7 @@ class Register extends Component {
                                                 </InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="password" placeholder="Password" autoComplete="new-password"
-                                                   value={this.state.password} onChange={this.passwordChange()}/>
+                                                   value={this.state.password} onChange={this.passwordChange.bind(this)}/>
                                         </InputGroup>
 
                                         <InputGroup className="mb-4">
@@ -92,10 +117,13 @@ class Register extends Component {
                                                 </InputGroupText>
                                             </InputGroupAddon>
 
-                                            <Input type="password" placeholder="Repeat password" autoComplete="new-password"/>
+                                            <Input type="password" placeholder="Repeat password" autoComplete="new-password"
+                                                value={this.state.confirmPw} onChange={this.confirmPwChange.bind(this)}/>
                                         </InputGroup>
-                                        <button type="submit" color="success" block>Create Account</button>
-                                    </form>
+                                        <Button type="submit" color="success" block>Create Account
+                                            <RegSuccessModal modal={this.modal}/>
+                                        </Button>
+                                    </Form>
                                 </CardBody>
                             </Card>
                         </Col>

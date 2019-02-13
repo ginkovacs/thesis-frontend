@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+//import styles from './Login.module.css';
 
 class Login extends Component {
 
@@ -49,9 +50,9 @@ class Login extends Component {
                       <h2>Sign up</h2>
                       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.</p>
-                        <span className="input-group-btn">
-                          <Link to="/register">Register Now!</Link>
-                        </span>
+                        <Button color="black">
+                            <Link to="/register">Register Now!</Link>
+                        </Button>
                     </div>
                   </CardBody>
                 </Card>
