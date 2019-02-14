@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.scss';
-// Styles
 // Import Font Awesome Icons Set
 import 'font-awesome/css/font-awesome.min.css';
-// Import Main styles for this application
-import './scss/style.scss'
+// Styles
+import './App.css';
 
 // Containers
 import { DefaultLayout } from './containers';

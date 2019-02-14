@@ -1,0 +1,11 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+$black:  #000;
+$trans: rgba(0, 0, 0, 0);
+
+$theme-colors: (
+        trans: $trans,
+        black: $black
+);
+
+@import "node_modules/bootstrap/scss/bootstrap";
