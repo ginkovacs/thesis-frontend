@@ -61,7 +61,7 @@ class Appmine extends Component {
                                 <td>{item.firstname}</td>
                                 <td>{item.lastname}</td>
                                 <td>
-                                    <DeletePopup idToDel={item.listid}/>
+                                    <DeletePopup idToDel={item.listid} modal={this.modal}/>
                                 </td>
                             </tr>
                         )}

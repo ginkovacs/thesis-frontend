@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import './modal.css'
 
 export class RegSuccessModal extends Component {
     constructor(props) {

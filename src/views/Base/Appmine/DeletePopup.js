@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import Popup from "reactjs-popup";
+//import Popup from "reactjs-popup";
 import './DeletePopup.css'
-import DeleteForm from './DeleteForm'
+//import DeleteForm from './DeleteForm'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import './modal.css';
 
 
 class DeletePopup extends Component {
@@ -10,6 +12,15 @@ class DeletePopup extends Component {
 
         this.state = { open: false };
         this.id = props.idToDel;
+        this.modal = props.modal;
+        this.toggle = this.toggle.bind(this);
+
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
     }
 
     openModal = () => {
@@ -23,6 +34,26 @@ class DeletePopup extends Component {
     render () {
         return (
             <div>
+                <Button color="danger" onClick={this.toggle}>X</Button>
+                <Modal isOpen={this.modal} toggle={this.toggle}>
+                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+        )
+    }
+}
+
+export default DeletePopup;
+
+/*
+<div>
                 <button className="button" onClick={this.openModal}>
                     X
                 </button>
@@ -45,8 +76,5 @@ class DeletePopup extends Component {
                     </div>
                 </Popup>
             </div>
-        )
-    }
-}
+ */
 
-export default DeletePopup;
