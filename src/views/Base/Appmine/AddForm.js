@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import request from 'superagent';
 import {Form} from 'reactstrap';
+import {RESTHOST} from '../../../constants';
+import {post} from '../../../user/UserUtils';
 
 class AddForm extends Component {
     constructor(props) {
@@ -13,9 +14,6 @@ class AddForm extends Component {
 
         this.fname ='';
         this.lname='';
-
-        this.restHost = 'http://localhost:8080/rest';
-        this.addHost='/customer/add';
     }
 
     fnameChange = (event) => {
@@ -31,11 +29,11 @@ class AddForm extends Component {
         this.fname = this.state.fnameval;
         this.lname = this.state.lnameval;
 
-        request
-            .post(this.restHost + this.addHost)
-            .set('Content-Type', 'application/json')
-            .send({firstName: this.fname, lastName: this.lname})
-            .catch(error => console.log(error));
+        post({
+            url: RESTHOST + '/customer/add',
+            data: {firstName: this.fname, lastName: this.lname}
+        })
+            .then(console.log('Customer added.'));
     }
 
     render() {

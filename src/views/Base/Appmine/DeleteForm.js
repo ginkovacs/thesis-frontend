@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import request from 'superagent';
+import {del} from '../../../user/UserUtils'
+import {RESTHOST} from '../../../constants';
+import {Button} from 'reactstrap';
 
 class DeleteForm extends Component {
     constructor (props) {
         super(props);
-
-        this.restHost = 'http://localhost:8080/rest';
-        this.deleteHost='/customer/deleteCust';
 
         this.id = props.idToDel;
     }
@@ -14,16 +13,18 @@ class DeleteForm extends Component {
     deleteHandler = (event) => {
         event.preventDefault();
 
-        request
-            .del(this.restHost + this.deleteHost)
-            .send({ id: this.id })
-            .catch(error => console.log(error));
+        del({
+            url: RESTHOST + '/customer/deleteCust',
+            data: { id: this.id }
+        })
+        .then(response => console.log("Delete successful"))
+            .then(window.location.reload());
     }
 
     render () {
         return (
             <div>
-                <button onClick={this.deleteHandler.bind(this)}>Yes</button>
+                <Button color="success" onClick={this.deleteHandler.bind(this)}>Yes</Button>
             </div>
         )
     }

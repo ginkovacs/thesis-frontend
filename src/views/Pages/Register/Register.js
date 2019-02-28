@@ -1,13 +1,15 @@
-import React from 'react';
-import { Button, Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Form, Row } from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Form, Row } from 'reactstrap';
 import request from "superagent";
-import RegSuccessModal from './RegSuccessModal';
+import RegSuccessButton from './RegSuccessButton';
+//import RegSuccessModal from 'RegSuccessModal';
+import {RESTHOST} from '../../../constants';
 
-class Register extends RegSuccessModal {
+
+class Register extends Component{
 
     constructor(props) {
         super(props);
-        this.restHost = 'http://localhost:8080/rest';
 
         this.state = {
             username: '',
@@ -21,14 +23,7 @@ class Register extends RegSuccessModal {
         this.password = '';
         this.confirmPw = '';
 
-        this.toggle = this.toggle.bind(this);
-        this.modal = false;
-    }
-
-    toggle() {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-        }));
+        this.success = false;
     }
 
     usernameChange(event) {
@@ -59,15 +54,14 @@ class Register extends RegSuccessModal {
         }
         else {
             request
-                .post(this.restHost + '/register')
+                .post(RESTHOST + '/auth/register')
                 .set('Content-Type', 'application/json')
                 .send({
-                    email: this.username,
+                    email: this.email,
                     username: this.username,
                     password: this.password
                 })
                 .catch(error => console.log(error));
-            this.toggle();
         }
     }
 
@@ -120,9 +114,7 @@ class Register extends RegSuccessModal {
                                             <Input type="password" placeholder="Repeat password" autoComplete="new-password"
                                                 value={this.state.confirmPw} onChange={this.confirmPwChange.bind(this)}/>
                                         </InputGroup>
-                                        <Button type="submit" color="success" block>Create Account
-                                            <RegSuccessModal modal={this.modal}/>
-                                        </Button>
+                                        <RegSuccessButton />
                                     </Form>
                                 </CardBody>
                             </Card>
@@ -135,3 +127,6 @@ class Register extends RegSuccessModal {
 }
 
 export default Register;
+/*
+<RegSuccessButton success={this.success}/>
+ */
