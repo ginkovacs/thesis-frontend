@@ -12,8 +12,10 @@ class DeletePopup extends Component {
 
         this.state = { modal: false };
         this.id = props.idToDel;
-        this.toggle = this.toggle.bind(this);
+        this.fckThisToo = props.fckThisToo;
 
+        this.toggle = this.toggle.bind(this);
+        this.fckThisSht = this.fckThisSht.bind(this);
     }
 
     toggle() {
@@ -22,13 +24,10 @@ class DeletePopup extends Component {
         }));
     }
 
-    openModal = () => {
-        this.setState({ open: true });
-    };
-
-    closeModal = () => {
-        this.setState({ open: false });
-    };
+    fckThisSht(id) {
+        this.fckThisToo(id);
+        this.toggle();
+    }
 
     render () {
         return (
@@ -39,7 +38,7 @@ class DeletePopup extends Component {
                         Are you sure you want to delete this?
                     </ModalBody>
                     <ModalFooter>
-                        <DeleteForm idToDel={this.id}/>
+                        <DeleteForm fckThisSht={this.fckThisSht} idToDel={this.id}/>
                         <Button color="danger" onClick={this.toggle}>No</Button>
                     </ModalFooter>
                 </Modal>

@@ -12,10 +12,15 @@ class Appmine extends Component {
 
     constructor(props){
         super(props);
+
         this.state={customersList:[],}
+
         this.restHost = 'http://localhost:8080/rest';
         this.customersList = [];
         //this.redirect = false;
+        this.setState({customersList: this.customersList});
+        this.fckThis = this.fckThis.bind(this);
+        this.fckThisToo = this.fckThisToo.bind(this);
     }
 
     componentWillMount() {
@@ -25,20 +30,28 @@ class Appmine extends Component {
     }
 
     componentDidMount() {
-        this.setState({customersList: []});
         get({
             url: RESTHOST + '/customer/findAll',
         })
-        .then(response => {
-            for (let cust of response.body) {
-                this.setState({
-                    customersList: [...this.state.customersList, {
-                        listid: cust.id, firstname: cust.firstName,
-                        lastname: cust.lastName
-                    }]
-                });
-            }
-        })
+            .then(response => {
+                let list = response.body;
+                this.setState({customersList: list});
+            })
+    }
+
+    fckThis(added) {
+        let tempList = this.state.customersList;
+        console.log(tempList);
+        tempList.push(added);
+        this.setState({customersList: tempList});
+    }
+
+    fckThisToo(deletedId) {
+        let tempList = this.state.customersList.filter(customer => {
+            return customer.id !== deletedId
+        });
+        console.log(tempList);
+        this.setState({customersList: tempList});
     }
 
         /*onclickHandler = () => {
@@ -60,16 +73,16 @@ class Appmine extends Component {
 
                 <div>
                     {/*<button onClick={this.onclickHandler} type="button"> Killmepls </button>*/}
-                    <AddForm />
+                    <AddForm fckThis={this.fckThis}/>
 
                     <table>
                         {this.state.customersList.map(item =>
                             <tr>
-                                <td>{item.listid}</td>
-                                <td>{item.firstname}</td>
-                                <td>{item.lastname}</td>
+                                <td>{item.id}</td>
+                                <td>{item.firstName}</td>
+                                <td>{item.lastName}</td>
                                 <td>
-                                    <DeletePopup idToDel={item.listid}/>
+                                    <DeletePopup fckThisToo={this.fckThisToo} idToDel={item.id}/>
                                 </td>
                             </tr>
                         )}

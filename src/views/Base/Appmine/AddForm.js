@@ -14,6 +14,8 @@ class AddForm extends Component {
 
         this.fname ='';
         this.lname='';
+
+        this.fckThis = props.fckThis;
     }
 
     fnameChange = (event) => {
@@ -33,7 +35,9 @@ class AddForm extends Component {
             url: RESTHOST + '/customer/add',
             data: {firstName: this.fname, lastName: this.lname}
         })
-            .then(console.log('Customer added.'));
+            .then(response => {
+                this.fckThis(response.body);
+            });
     }
 
     render() {

@@ -8,6 +8,7 @@ class DeleteForm extends Component {
         super(props);
 
         this.id = props.idToDel;
+        this.fckThisSht = props.fckThisSht;
     }
 
     deleteHandler = (event) => {
@@ -17,8 +18,7 @@ class DeleteForm extends Component {
             url: RESTHOST + '/customer/deleteCust',
             data: { id: this.id }
         })
-        .then(response => console.log("Delete successful"))
-            .then(window.location.reload());
+        .then(() => this.fckThisSht(this.id));
     }
 
     render () {

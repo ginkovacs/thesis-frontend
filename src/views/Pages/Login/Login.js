@@ -39,6 +39,10 @@ class Login extends Component {
           })
           .then(response => localStorage.setItem(ACCESS_TOKEN, response.body.accessToken))
           .catch(error => console.log(error));
+
+      if (localStorage.getItem(ACCESS_TOKEN)) {
+          this.props.history.push("/teacher");
+      }
   }
 
   render() {
