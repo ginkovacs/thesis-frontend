@@ -2,42 +2,63 @@ import React, { Component } from 'react';
 import logo from '../../../logo.svg';
 import './Appmine.css';
 import AddForm from './AddForm';
+//import DeletePopup from './DeletePopup';
+//import { Redirect } from 'react-router';
+import {ACCESS_TOKEN, RESTHOST} from '../../../constants';
+import {get} from '../../../user/UserUtils';
 import DeletePopup from './DeletePopup';
-import { Redirect } from 'react-router';
 
 class Appmine extends Component {
 
     constructor(props){
         super(props);
+
         this.state={customersList:[],}
+
         this.restHost = 'http://localhost:8080/rest';
         this.customersList = [];
-        this.redirect = false;
+        //this.redirect = false;
+        this.setState({customersList: this.customersList});
+        this.fckThis = this.fckThis.bind(this);
+        this.fckThisToo = this.fckThisToo.bind(this);
     }
 
+    componentWillMount() {
+        if (!localStorage.getItem(ACCESS_TOKEN)) {
+            this.props.history.push("/login");
+        }
+    }
 
     componentDidMount() {
-        this.setState({customersList: []});
-        fetch(this.restHost + '/customer/findAll')
-            .then(results => results.json())
-            .then(data => {
-                for (let cust of data) {
-                    this.setState({customersList: [...this.state.customersList, {listid: cust.id, firstname: cust.firstName,
-                        lastname: cust.lastName}]});
-                }
+        get({
+            url: RESTHOST + '/customer/findAll',
+        })
+            .then(response => {
+                let list = response.body;
+                this.setState({customersList: list});
             })
-            .catch(function(error) {
-                console.log(error)});
-        }
+    }
 
-        onclickHandler = () => {
+    fckThis(added) {
+        let tempList = this.state.customersList;
+        console.log(tempList);
+        tempList.push(added);
+        this.setState({customersList: tempList});
+    }
+
+    fckThisToo(deletedId) {
+        let tempList = this.state.customersList.filter(customer => {
+            return customer.id !== deletedId
+        });
+        console.log(tempList);
+        this.setState({customersList: tempList});
+    }
+
+        /*onclickHandler = () => {
             this.setState({redirect: true});
-        }
+        }*/
 
     render() {
-        if (this.state.redirect) {
-            return <Redirect push to="/App" />;
-        }
 
         return (
             <div className="root">
@@ -51,17 +72,17 @@ class Appmine extends Component {
                 </div>
 
                 <div>
-                    <button onClick={this.onclickHandler} type="button"> Killmepls </button>
-                    <AddForm />
+                    {/*<button onClick={this.onclickHandler} type="button"> Killmepls </button>*/}
+                    <AddForm fckThis={this.fckThis}/>
 
                     <table>
                         {this.state.customersList.map(item =>
                             <tr>
-                                <td>{item.listid}</td>
-                                <td>{item.firstname}</td>
-                                <td>{item.lastname}</td>
+                                <td>{item.id}</td>
+                                <td>{item.firstName}</td>
+                                <td>{item.lastName}</td>
                                 <td>
-                                    <DeletePopup idToDel={item.listid}/>
+                                    <DeletePopup fckThisToo={this.fckThisToo} idToDel={item.id}/>
                                 </td>
                             </tr>
                         )}
@@ -74,3 +95,11 @@ class Appmine extends Component {
 }
 
 export default Appmine;
+
+/*
+
+        if (this.state.redirect) {
+            return <Redirect push to="/App" />;
+        }
+        <DeletePopup idToDel={item.listid} modal={this.modal}/>
+ */
