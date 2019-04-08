@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
-import {ACCESS_TOKEN} from "../../../constants";
+import {ACCESS_TOKEN, RESTHOST} from "../../../constants";
 import './Test.css';
 import {Col, Row} from "reactstrap";
+import {get} from "../../../user/UserUtils";
+import NewQuestionModal from './NewQuestionModal';
 
 export class Test extends Component {
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            questions: [],
+            loading: true
+        }
+
+        this.testId = this.props.match.params.id;
+
+        this.getQuestions = this.getQuestions.bind(this);
+        this.renderQuestions = this.renderQuestions.bind(this);
+    }
 
     componentWillMount() {
         if (!localStorage.getItem(ACCESS_TOKEN)) {
@@ -11,34 +26,51 @@ export class Test extends Component {
         }
     }
 
+    getQuestions () {
+        get({
+            url: RESTHOST + '/question/findAllQuestion',
+            data: {testId: this.testId}
+        })
+            .then(response => {
+                this.setState({questions: response.body});
+                this.setState({loading: false});
+            });
+    }
+
+    renderQuestions = () => {
+        let rows = [];
+
+        let count = this.state.questions.length;
+
+        for (let i = 0; i<count; i++) {
+            let row = this.state.questions[i];
+
+            rows.push(
+                <Row>
+                    {row.question}
+                </Row>
+            )
+        }
+
+        return rows;
+    }
+
     render() {
         return (
             <div>
                 <div class="d-flex justify-content-center">
-                    <h2>Test name</h2>
+                    <Row>
+                        <Col md="7">
+                            <h2>Test name</h2>
+                        </Col>
+                        <Col>
+                            <NewQuestionModal id={this.state.id}/>
+                        </Col>
+                    </Row>
                 </div>
                 <div class="questionsDiv">
                     <Row>
-                        question 1
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Row>answer a</Row>
-                            <Row>answer b</Row>
-                            <Row>answer c</Row>
-                            <Row>answer d</Row>
-                        </Col>
-                    </Row>
-                    <Row>
-                        question 2
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Row>answer a</Row>
-                            <Row>answer b</Row>
-                            <Row>answer c</Row>
-                            <Row>answer d</Row>
-                        </Col>
+                        {this.renderQuestions()}
                     </Row>
                 </div>
             </div>

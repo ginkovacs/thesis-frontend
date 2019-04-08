@@ -23,8 +23,8 @@ class App extends Component {
                     <Route exact path="/500" name="Page 500" component={Page500}/>
                     <Route exact path="/App" name='Base' component={Appmine}/>
                     <Route exact path="/teacher" name='Teacher' component={Teacher}/>
-                    <Route exact path="/course" name='Course' component={Course}/>
-                    <Route exact path="/test" name='Test' component={Test}/>
+                    <Route exact path="/course/:id" name='Course' component={Course}/>
+                    <Route exact path="/test/:id" name='Test' component={Test}/>
                 </Switch>
             </BrowserRouter>
         );

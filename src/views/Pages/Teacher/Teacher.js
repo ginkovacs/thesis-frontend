@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {ACCESS_TOKEN, RESTHOST} from "../../../constants";
 import './Teacher.css';
-import {Button, Card, CardHeader, CardBody, Row, Col} from "reactstrap";
+import {Card, CardHeader, CardBody, Row, Col} from "reactstrap";
 import {get} from "../../../user/UserUtils";
+import NewCourseModal from './NewCourseModal';
 
 export class Teacher extends Component {
 
@@ -11,7 +12,8 @@ export class Teacher extends Component {
 
         this.state = {
             courses: [],
-            user: null
+            user: null,
+            loading: true
         }
 
         this.toCourse=this.toCourse.bind(this);
@@ -22,28 +24,16 @@ export class Teacher extends Component {
         if (!localStorage.getItem(ACCESS_TOKEN)) {
             this.props.history.push("/login");
         }
-
-        get({
-            url: RESTHOST + '/user'
-        })
-            .then(response => {
-                this.setState({user : response.body});
-            })
     }
 
     componentDidMount() {
-        if (this.state.user === null) {
-            get({
-                url: RESTHOST + '/user'
+        get({
+            url: RESTHOST + '/user'
+        })
+            .end((err, res) => {
+                this.setState({user : res.body});
+                this.getCourses();
             })
-                .end((err, res) => {
-                    this.setState({user : res.body});
-                    this.getCourses();
-                })
-        }
-        else {
-            this.getCourses();
-        }
     }
 
     getCourses() {
@@ -53,31 +43,29 @@ export class Teacher extends Component {
         })
             .then(response => {
                 this.setState({courses: response.body});
+                this.setState({loading: false});
             });
     }
 
     toCourse(id) {
-        /*this.props.history.push({
-            pathname: '/course',
-            state: {id: id}
-        });*/
-        this.props.history.push('/course');
+        this.props.history.push("/course/" + id);
     }
 
     renderCols = (egySlice) => {
         let cols = [];
 
-        egySlice.forEach( s =>
-            cols.push(
-                <Col md="4">
-                    <Card onClick={this.toCourse(s.id)}>
-                        <CardHeader>
-                            {s.name}
-                        </CardHeader>
-                        <CardBody>Something About The Course? {s.description}</CardBody>
-                    </Card>
-                </Col>
-            )
+        egySlice.forEach( s => {
+                cols.push(
+                    <Col md="4">
+                        <Card onClick={() => this.toCourse(s.id)}>
+                            <CardHeader>
+                                {s.name}
+                            </CardHeader>
+                            <CardBody>{s.description}</CardBody>
+                        </Card>
+                    </Col>
+                )
+            }
         )
 
         return cols;
@@ -90,11 +78,11 @@ export class Teacher extends Component {
 
         let numInRow = 3;
 
-        for (let i=0; i<=count/numInRow; i+=3) {
-            let egySlice = this.state.courses.slice(i, i+2);
+        for (let i=0; i<=count/numInRow; i+=1) {
+            let egySlice = this.state.courses.slice(i*numInRow, (i+1)*numInRow);
 
             rows.push(
-                <Row>
+                <Row className="mb-3">
                     {this.renderCols(egySlice)}
                 </Row>);
         }
@@ -102,13 +90,16 @@ export class Teacher extends Component {
         return rows;
     }
 
-
     render() {
+        if(this.state.loading) {
+            return <div>
+                Loading...
+            </div>
+        }
+
         return (
             <div>
-                <div class="d-flex justify-content-end">
-                    <Button>Add new course</Button>
-                </div>
+                <NewCourseModal userEmail={this.state.user.email} getCourses={this.getCourses}/>
                 <br/>
                 <div class="tableDiv justify-content-center">
                     {this.renderCards()}

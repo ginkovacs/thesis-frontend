@@ -111,5 +111,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+###Own###
+App.css
 
 # End of https://www.gitignore.io/api/maven,intellij+all
