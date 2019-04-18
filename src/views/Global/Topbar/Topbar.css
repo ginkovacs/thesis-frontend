@@ -1,0 +1,16 @@
+.topRow {
+    background-color: #002b3b;
+    color: white;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-weight: bold;
+}
+
+.gomb {
+    color: #002b3b;
+    font-weight: bold;
+}
+
+.oszlop {
+    padding-top: 5px;
+}

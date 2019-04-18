@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {RESTHOST} from "../../../constants/index";
+import {RESTHOST} from "../../../../constants/index";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, Input} from "reactstrap";
-import {post} from "../../../user/UserUtils";
+import {post} from "../../../../user/UserUtils";
 import AnswerForm from "./AnswerForm";
 
 export class NewQuestionModal extends Component {
@@ -10,12 +10,11 @@ export class NewQuestionModal extends Component {
 
         this.state = {
             modal: false,
-            questionName: ''
+            questionName: '',
+            answers: []
         };
 
-        this.testId = props.id;
-
-        this.questionName = '';
+        this.testId = this.props.match.params.id;
 
         this.addQuestion = this.addQuestion.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -27,8 +26,8 @@ export class NewQuestionModal extends Component {
 
         post({
             url: RESTHOST + '/question/addQuestion',
-            data: {question: this.questionName,
-                answers: [],
+            data: {question: this.state.questionName,
+                answers: this.state.answers,
                 testId: this.testId}
         })
             .then(() => {
@@ -57,7 +56,7 @@ export class NewQuestionModal extends Component {
                         </InputGroup>
                     </ModalHeader>
                     <ModalBody>
-                        <AnswerForm/>
+                        <AnswerForm answers={this.state.answers}/>
                     </ModalBody>
                     <ModalFooter>
                         <Button onClick={this.addQuestion}>Save</Button>

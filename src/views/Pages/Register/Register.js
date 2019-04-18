@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Form, Row } from 'reactstrap';
 import request from "superagent";
-import RegSuccessButton from './RegSuccessButton';
-//import RegSuccessModal from 'RegSuccessModal';
+import RegButton from './RegButton';
 import {RESTHOST} from '../../../constants';
 
 
@@ -15,15 +14,9 @@ class Register extends Component{
             username: '',
             email: '',
             password: '',
-            confirmPw: ''
+            confirmPw: '',
+            success: false
         }
-
-        this.username = '';
-        this.email = '';
-        this.password = '';
-        this.confirmPw = '';
-
-        this.success = false;
     }
 
     usernameChange(event) {
@@ -44,12 +37,8 @@ class Register extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.username = this.state.username;
-        this.email = this.state.email;
-        this.password = this.state.password;
-        this.confirmPw = this.state.confirmPw;
 
-        if (this.password !== this.confirmPw) {
+        if (this.state.password !== this.state.confirmPw) {
             alert("Passwords don't match");
         }
         else {
@@ -57,11 +46,12 @@ class Register extends Component{
                 .post(RESTHOST + '/auth/register')
                 .set('Content-Type', 'application/json')
                 .send({
-                    email: this.email,
-                    username: this.username,
-                    password: this.password
+                    username: this.state.username,
+                    email: this.state.email,
+                    password: this.state.password
                 })
                 .catch(error => console.log(error));
+            this.setState({success: true});
         }
     }
 
@@ -114,7 +104,7 @@ class Register extends Component{
                                             <Input type="password" placeholder="Repeat password" autoComplete="new-password"
                                                 value={this.state.confirmPw} onChange={this.confirmPwChange.bind(this)}/>
                                         </InputGroup>
-                                        <RegSuccessButton />
+                                        <RegButton success={this.state.success}/>
                                     </Form>
                                 </CardBody>
                             </Card>

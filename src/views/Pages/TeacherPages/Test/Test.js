@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {ACCESS_TOKEN, RESTHOST} from "../../../constants";
+import {ACCESS_TOKEN, RESTHOST} from "../../../../constants/index";
 import './Test.css';
 import {Col, Row} from "reactstrap";
-import {get} from "../../../user/UserUtils";
+import {get} from "../../../../user/UserUtils";
 import NewQuestionModal from './NewQuestionModal';
 
 export class Test extends Component {

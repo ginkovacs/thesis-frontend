@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {RESTHOST} from "../../../constants/index";
+import {RESTHOST} from "../../../../constants/index";
 import {Button, Modal, ModalBody, ModalFooter, InputGroup, Input, Form, FormGroup} from "reactstrap";
-import {post} from "../../../user/UserUtils";
+import {post} from "../../../../user/UserUtils";
+import './NewCourseModal.css';
 
 export class NewCourseModal extends Component {
     constructor (props) {
@@ -60,7 +61,7 @@ export class NewCourseModal extends Component {
     render() {
         return (
             <div className="d-flex justify-content-end">
-                <Button onClick={this.toggle}>Add new course</Button>
+                <Button onClick={this.toggle} className="modalGomb" color="darkBlue">Add new course</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalBody>
                         <InputGroup>

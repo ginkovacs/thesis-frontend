@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import {ACCESS_TOKEN, RESTHOST} from "../../../constants";
-import './Teacher.css';
+import {ACCESS_TOKEN, RESTHOST} from "../../../../constants/index";
+import Topbar from '../../../Global/Topbar/Topbar';
+import {get} from "../../../../user/UserUtils";
 import {Card, CardHeader, CardBody, Row, Col} from "reactstrap";
-import {get} from "../../../user/UserUtils";
-import NewCourseModal from './NewCourseModal';
 
-export class Teacher extends Component {
+export class Student extends Component {
 
     constructor (props) {
         super(props);
@@ -19,6 +18,7 @@ export class Teacher extends Component {
         this.toCourse=this.toCourse.bind(this);
         this.getCourses = this.getCourses.bind(this);
     }
+
 
     componentWillMount() {
         if (!localStorage.getItem(ACCESS_TOKEN)) {
@@ -47,10 +47,6 @@ export class Teacher extends Component {
             });
     }
 
-    toCourse(id) {
-        this.props.history.push("/course/" + id);
-    }
-
     renderCols = (egySlice) => {
         let cols = [];
 
@@ -58,7 +54,7 @@ export class Teacher extends Component {
                 cols.push(
                     <Col md="4">
                         <Card onClick={() => this.toCourse(s.id)}>
-                            <CardHeader>
+                            <CardHeader className="cardH">
                                 {s.name}
                             </CardHeader>
                             <CardBody>{s.description}</CardBody>
@@ -90,7 +86,11 @@ export class Teacher extends Component {
         return rows;
     }
 
-    render() {
+    toCourse(id) {
+        this.props.history.push("/course/" + id);
+    }
+
+    render () {
         if(this.state.loading) {
             return <div>
                 Loading...
@@ -99,15 +99,14 @@ export class Teacher extends Component {
 
         return (
             <div>
-                <NewCourseModal userEmail={this.state.user.email} getCourses={this.getCourses}/>
+                <Topbar/>
                 <br/>
-                <div class="tableDiv justify-content-center">
+                <div className="tableDiv justify-content-center">
                     {this.renderCards()}
                 </div>
             </div>
-        );
-
+        )
     }
 }
 
-export default Teacher;
+export default Student;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {RESTHOST} from "../../../constants/index";
+import {RESTHOST} from "../../../../constants/index";
 import {Button, Modal, ModalBody, ModalFooter, InputGroup, Input} from "reactstrap";
-import {post} from "../../../user/UserUtils";
+import {post} from "../../../../user/UserUtils";
+import './NewTestModal.css';
 
 export class NewTestModal extends Component {
     constructor (props) {
@@ -50,7 +51,7 @@ export class NewTestModal extends Component {
     render() {
         return (
             <div className="d-flex justify-content-end">
-                <Button onClick={this.toggle}>Add new test</Button>
+                <Button onClick={this.toggle} className="testGomb" color="darkBlue">Add new test</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalBody>
                         <InputGroup>

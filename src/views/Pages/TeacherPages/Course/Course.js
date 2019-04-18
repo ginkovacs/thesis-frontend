@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {ACCESS_TOKEN, RESTHOST} from "../../../constants";
+import {ACCESS_TOKEN, RESTHOST} from "../../../../constants/index";
 import './Course.css';
-import {Card, CardHeader, Row, Col, Nav, NavItem, NavLink, TabContent, TabPane} from "reactstrap";
-import {get} from "../../../user/UserUtils";
+import {Button, Card, CardHeader, Row, Col, Nav, NavItem, NavLink, TabContent, TabPane, InputGroup, Input} from "reactstrap";
+import {get} from "../../../../user/UserUtils";
 import NewTestModal from "./NewTestModal";
 import classnames from 'classnames';
+import Topbar from '../../../Global/Topbar/Topbar';
 
 export class Course extends Component{
     constructor (props) {
@@ -93,7 +94,7 @@ export class Course extends Component{
                 cols.push(
                     <Col md="4">
                         <Card onClick={() => this.toTest(s.id)}>
-                            <CardHeader>
+                            <CardHeader className="testH">
                                 {s.name}
                             </CardHeader>
                         </Card>
@@ -111,9 +112,20 @@ export class Course extends Component{
         this.state.users.forEach( r => {
                 rows.push(
                     <Row>
-                        {r.email}
+                        <Col className="col-md-3">
+                            {r.email}
+                        </Col>
+                        <Col className="col-md-3">
+                            <Button color="lightBlue">
+                                <i className="fa fa-user-plus" aria-hidden="true"/>
+                            </Button>
+                            <Button color="darkBlue">
+                                <i className="fa fa-trash-o" aria-hidden="true"/>
+                            </Button>
+                        </Col>
                     </Row>
-                )
+                );
+            rows.push(<hr/>);
             }
         )
 
@@ -145,6 +157,8 @@ export class Course extends Component{
 
         return (
             <div>
+                <Topbar/>
+                <br/>
                 <div className="d-flex justify-content-end">
                     <NewTestModal id={this.courseId} getTests={this.getTests}/>
                 </div>
@@ -175,6 +189,7 @@ export class Course extends Component{
                                     </NavLink>
                                 </NavItem>
                             </Nav>
+                            <br/>
                             <TabContent activeTab={this.state.activeTab}>
                                 <TabPane tabId="1">
                                     <Row>
@@ -189,6 +204,16 @@ export class Course extends Component{
                                     </div>
                                 </TabPane>
                                 <TabPane tabId="3">
+                                    <div>
+                                        <Row>
+                                            <Col className="col-md-3">
+                                                <InputGroup>
+                                                    <Input type="text" placeholder="Search..."/>
+                                                </InputGroup>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                    <br/>
                                     <div className="tableDiv justify-content-center">
                                         {this.renderUsers()}
                                     </div>

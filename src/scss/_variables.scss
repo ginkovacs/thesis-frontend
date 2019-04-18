@@ -2,10 +2,16 @@
 
 $black:  #000;
 $trans: rgba(0, 0, 0, 0);
+$white: #fff;
+$lightBlue: #91c5ff;
+$darkBlue: #002b3b;
 
 $theme-colors: (
         trans: $trans,
-        black: $black
+        black: $black,
+        white: $white,
+        lightBlue: $lightBlue,
+        darkBlue: $darkBlue,
 );
 
 @import "node_modules/bootstrap/scss/bootstrap";
