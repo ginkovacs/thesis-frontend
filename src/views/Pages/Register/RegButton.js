@@ -24,7 +24,7 @@ export class RegButton extends Component {
                             Registration was successful!
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.proceed}>Proceed</Button>
+                            <Button color="lightBlue" onClick={this.proceed}>Proceed</Button>
                         </ModalFooter>
                     </Modal>
                 </div>
@@ -45,7 +45,7 @@ export class RegButton extends Component {
     render() {
         return (
             <div>
-                <Button color="primary" type="submit" onClick={this.modalPopup}> Create Account </Button>
+                <Button color="darkBlue" type="submit"> Create Account </Button>
             </div>
         );
     }

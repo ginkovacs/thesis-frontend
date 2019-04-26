@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, InputGroup, Input, Row} from 'reactstrap';
+import {Button, InputGroup, Input, Row, Col} from 'reactstrap';
 
 export class NewAnswer extends Component{
     constructor(props) {
@@ -37,8 +37,14 @@ export class NewAnswer extends Component{
                                value={this.state.inputValue} onChange={this.changeInput}/>
                     </InputGroup>
                     <Row>
-                        <Button onClick={this.addAns}>Add answer</Button>
-                        <Button onClick={this.toggle}>Cancel</Button>
+                        <Col md="5" />
+                        <Col md="4" className="addAns">
+                            <Button color="lightBlue" onClick={this.addAns}>Add answer</Button>
+                        </Col>
+                        <Col md="2">
+                            <Button color="darkBlue" onClick={this.toggle}>Cancel</Button>
+                        </Col>
+                        <Col md="1"/>
                     </Row>
                 </div>
             )
@@ -54,7 +60,7 @@ export class NewAnswer extends Component{
     render() {
         return (
             <div>
-                <Button onClick={this.toggle}>
+                <Button color="lightBlue" onClick={this.toggle}>
                     Create new answer
                 </Button>
                 <div>

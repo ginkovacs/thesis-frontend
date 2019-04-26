@@ -1,0 +1,6 @@
+{
+  "name": "MyTest",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./MyTest.js"
+}

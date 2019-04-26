@@ -6,3 +6,12 @@
 .cardH {
     background-color: #91c5ff;
 }
+
+.butpen {
+    background-color: white;
+    justify-content: end;
+}
+
+.name {
+    padding-top: 3%;
+}

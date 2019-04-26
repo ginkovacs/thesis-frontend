@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
-export class RegSuccessModal extends Component {
+class DeleteModal extends Component {
     constructor (props) {
         super(props);
 
@@ -19,13 +19,16 @@ export class RegSuccessModal extends Component {
     render () {
         return (
             <div>
-                <Button color="darkBlue" onClick={this.toggle}> Create Account </Button>
+                <Button outline color="darkBlue" className="butt" onClick={this.toggle}>
+                    <i className="fa fa-trash" aria-hidden="true"/>
+                </Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalBody>
-                        Register successful.
+                        Are you sure you want to delete this?
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="darkBlue" onClick={this.toggle}>Back to login</Button>
+                        <Button color="lightBlue" onClick={this.toggle}>Yes</Button>
+                        <Button color="darkBlue" onClick={this.toggle}>No</Button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -33,4 +36,5 @@ export class RegSuccessModal extends Component {
     }
 }
 
-export default RegSuccessModal;
+export default DeleteModal;
+

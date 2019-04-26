@@ -5,6 +5,8 @@ import {Card, CardHeader, CardBody, Row, Col} from "reactstrap";
 import {get} from "../../../../user/UserUtils";
 import NewCourseModal from './NewCourseModal';
 import Topbar from '../../../Global/Topbar/Topbar';
+import DeleteModal from "./DeleteModal";
+import EditModal from "./EditModal";
 
 export class Teacher extends Component {
 
@@ -58,9 +60,19 @@ export class Teacher extends Component {
         egySlice.forEach( s => {
                 cols.push(
                     <Col md="4">
-                        <Card onClick={() => this.toCourse(s.id)}>
+                        <Card >
                             <CardHeader className="cardH">
-                                {s.name}
+                                <Row>
+                                    <Col md="8" onClick={() => this.toCourse(s.id)}>
+                                        <h5 className="name" >{s.name}</h5>
+                                    </Col>
+                                    <Col md="2">
+                                        <EditModal/>
+                                    </Col>
+                                    <Col md="1">
+                                        <DeleteModal/>
+                                    </Col>
+                                </Row>
                             </CardHeader>
                             <CardBody>{s.description}</CardBody>
                         </Card>

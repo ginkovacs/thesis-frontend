@@ -6,3 +6,24 @@
 .testH {
     background-color: #91c5ff;
 }
+
+.butp {
+    background-color: white;
+    justify-content: end;
+}
+
+.butt {
+    background-color: white;
+}
+
+.names {
+    padding-top: 3%;
+}
+
+.pdf {
+    height: 80px;
+}
+
+.szoveg {
+    padding-left: 2%;
+}

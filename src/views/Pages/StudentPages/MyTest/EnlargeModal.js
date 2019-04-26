@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { Col,  Modal, ModalBody, Row} from 'reactstrap';
+import diamond from "../../../../../src/assets/img/Diamond.png";
 
-export class RegSuccessModal extends Component {
+class EnlargeModal extends Component {
     constructor (props) {
         super(props);
 
@@ -19,18 +20,21 @@ export class RegSuccessModal extends Component {
     render () {
         return (
             <div>
-                <Button color="darkBlue" onClick={this.toggle}> Create Account </Button>
+                <Row>
+                    <Col md="10"/>
+                    <Col onClick={this.toggle}>
+                        <img src={diamond} alt="diamond" className="picture"/>
+                    </Col>
+                </Row>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalBody>
-                        Register successful.
+                        <img src={diamond} alt="diamond" className="enlarged"/>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="darkBlue" onClick={this.toggle}>Back to login</Button>
-                    </ModalFooter>
                 </Modal>
             </div>
         )
     }
 }
 
-export default RegSuccessModal;
+export default EnlargeModal;
+

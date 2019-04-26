@@ -59,8 +59,8 @@ export class NewTestModal extends Component {
                         </InputGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={this.addTest}>Save</Button>
-                        <Button onClick={this.toggle}>Cancel</Button>
+                        <Button className="text-darkBlue" onClick={this.addTest} color="lightBlue">Save</Button>
+                        <Button onClick={this.toggle} color="darkBlue">Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>

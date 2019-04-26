@@ -6,6 +6,10 @@ import {get} from "../../../../user/UserUtils";
 import NewTestModal from "./NewTestModal";
 import classnames from 'classnames';
 import Topbar from '../../../Global/Topbar/Topbar';
+import FileModal from "./FileModal";
+import LinkModal from "./LinkModal";
+import pdf from "../../../../../src/assets/img/pdf.png";
+import {Link} from "react-router-dom";
 
 export class Course extends Component{
     constructor (props) {
@@ -95,7 +99,21 @@ export class Course extends Component{
                     <Col md="4">
                         <Card onClick={() => this.toTest(s.id)}>
                             <CardHeader className="testH">
-                                {s.name}
+                                <Row>
+                                    <Col md="8">
+                                        <h5 className="names">{s.name}</h5>
+                                    </Col>
+                                    <Col md="2">
+                                        <Button outline color="darkBlue" className="butp">
+                                            <i className="fa fa-pencil"  aria-hidden="true"/>
+                                        </Button>
+                                    </Col>
+                                    <Col md="1">
+                                        <Button outline color="darkBlue" className="butt">
+                                            <i className="fa fa-trash" aria-hidden="true"/>
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </CardHeader>
                         </Card>
                     </Col>
@@ -104,6 +122,23 @@ export class Course extends Component{
         )
 
         return cols;
+    }
+
+    studentButtons (email) {
+        if (email !== "student@test.com") {
+            return (
+                <Button color="lightBlue">
+                    <i className="fa fa-user-plus" aria-hidden="true"/>
+                </Button>
+            )
+        }
+        else {
+            return (
+                <Button color="darkBlue">
+                    <i className="fa fa-trash-o" aria-hidden="true"/>
+                </Button>
+            )
+        }
     }
 
     renderUsers = () => {
@@ -116,12 +151,7 @@ export class Course extends Component{
                             {r.email}
                         </Col>
                         <Col className="col-md-3">
-                            <Button color="lightBlue">
-                                <i className="fa fa-user-plus" aria-hidden="true"/>
-                            </Button>
-                            <Button color="darkBlue">
-                                <i className="fa fa-trash-o" aria-hidden="true"/>
-                            </Button>
+                            {this.studentButtons(r.email)}
                         </Col>
                     </Row>
                 );
@@ -159,10 +189,6 @@ export class Course extends Component{
             <div>
                 <Topbar/>
                 <br/>
-                <div className="d-flex justify-content-end">
-                    <NewTestModal id={this.courseId} getTests={this.getTests}/>
-                </div>
-                <br/>
                 <div class="tableDiv">
                     <Row>
                         <Col>
@@ -194,11 +220,47 @@ export class Course extends Component{
                                 <TabPane tabId="1">
                                     <Row>
                                         <Col sm="12">
-                                            <h4>Tab 1 Contents</h4>
+                                            <Row className="d-flex justify-content-end">
+                                                <FileModal/>
+                                                <LinkModal/>
+                                            </Row>
+                                            <Row>
+                                                <Col md="6">
+                                                    <Row>
+                                                        <h5>Files:</h5>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col md="1"/>
+                                                        <Col>
+                                                            <img src={pdf} alt="pdf" className="pdf"/>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col md="1"/>
+                                                        <Col>
+                                                            <p className="szoveg">pdf.pdf</p>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                <Col md="6">
+                                                    <Row>
+                                                        <h5>Links:</h5>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col md="1"/>
+                                                        <Col>
+                                                            <Link to="www.google.com">http://localhost:8080/course/95</Link>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
                                         </Col>
                                     </Row>
                                 </TabPane>
                                 <TabPane tabId="2">
+                                    <Row className="d-flex justify-content-end">
+                                        <NewTestModal id={this.courseId} getTests={this.getTests}/>
+                                    </Row>
                                     <div className="tableDiv justify-content-center">
                                         {this.renderCards()}
                                     </div>

@@ -1,0 +1,16 @@
+ .chck {
+     color: green;
+ }
+
+ .cross {
+     color: red;
+ }
+
+ .picture {
+    height: 40px;
+ }
+
+ .enlarged {
+     height: 400px;
+     padding-left: 20%;
+ }

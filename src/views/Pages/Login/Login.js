@@ -55,12 +55,12 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
                     <Form onSubmit={this.loginSubmit}>
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
+                      <h1 className="text-darkBlue">Login</h1>
+                      <p className="text-muted text-darkBlue">Sign In to your account</p>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                              <i className="fa fa-at" aria-hidden="true"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="text" placeholder="Email Address" autoComplete="email"
@@ -69,7 +69,7 @@ class Login extends Component {
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-lock"></i>
+                              <i className="fa fa-lock" aria-hidden="true"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="password" placeholder="Password" autoComplete="current-password"
@@ -77,19 +77,19 @@ class Login extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4" type="submit">Login</Button>
+                          <Button color="lightBlue" className="px-4 text-darkBlue" type="submit">Login</Button>
                         </Col>
                       </Row>
                     </Form>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
+                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }} color="lightBlue">
                   <CardBody className="text-center">
                     <div>
-                      <h2>Sign up</h2>
-                      <p>Join us and become a part of the community!</p>
-                        <Button color="black">
-                            <Link to="/register">Register Now!</Link>
+                      <h2 className="text-darkBlue">Sign up</h2>
+                      <p className="text-darkBlue">Join us and become a part of the community!</p>
+                        <Button color="white">
+                            <Link to="/register" className="text-darkBlue">Register Now!</Link>
                         </Button>
                     </div>
                   </CardBody>

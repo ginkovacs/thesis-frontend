@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import {Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import {Button, Modal, ModalBody, ModalFooter} from "reactstrap";
 
-export class RegSuccessModal extends Component {
+export class FileModal extends Component {
+
     constructor (props) {
         super(props);
 
-        this.state = { modal: false };
+        this.state = {
+            modal: false
+        };
 
         this.toggle = this.toggle.bind(this);
     }
@@ -19,13 +22,14 @@ export class RegSuccessModal extends Component {
     render () {
         return (
             <div>
-                <Button color="darkBlue" onClick={this.toggle}> Create Account </Button>
+                <Button color="darkBlue"  onClick={this.toggle}>Add new file</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalBody>
-                        Register successful.
+                        <Button color="lightBlue" className="text-darkBlue">Search</Button>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="darkBlue" onClick={this.toggle}>Back to login</Button>
+                        <Button className="text-darkBlue" color="lightBlue">Save</Button>
+                        <Button onClick={this.toggle} color="darkBlue">Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -33,4 +37,4 @@ export class RegSuccessModal extends Component {
     }
 }
 
-export default RegSuccessModal;
+export default FileModal;

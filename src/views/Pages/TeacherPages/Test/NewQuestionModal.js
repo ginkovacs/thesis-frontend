@@ -3,6 +3,7 @@ import {RESTHOST} from "../../../../constants/index";
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, InputGroup, Input} from "reactstrap";
 import {post} from "../../../../user/UserUtils";
 import AnswerForm from "./AnswerForm";
+import "./Modal.css";
 
 export class NewQuestionModal extends Component {
     constructor (props) {
@@ -14,15 +15,15 @@ export class NewQuestionModal extends Component {
             answers: []
         };
 
-        this.testId = this.props.match.params.id;
+        this.testId = props.id;
 
         this.addQuestion = this.addQuestion.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.getQuestions = props.getQuestions;
     }
 
     addQuestion = (event) => {
         event.preventDefault();
-        this.name = this.state.testName;
 
         post({
             url: RESTHOST + '/question/addQuestion',
@@ -32,6 +33,7 @@ export class NewQuestionModal extends Component {
         })
             .then(() => {
                 this.toggle();
+                this.getQuestions();
             });
     }
 
@@ -48,7 +50,7 @@ export class NewQuestionModal extends Component {
     render() {
         return (
             <div className="d-flex justify-content-end">
-                <Button onClick={this.toggle}>Add new question</Button>
+                <Button className="addBut" onClick={this.toggle} color="darkBlue">Add new question</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                     <ModalHeader>
                         <InputGroup>
@@ -59,8 +61,8 @@ export class NewQuestionModal extends Component {
                         <AnswerForm answers={this.state.answers}/>
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={this.addQuestion}>Save</Button>
-                        <Button onClick={this.toggle}>Cancel</Button>
+                        <Button color="lightBlue" onClick={this.addQuestion}>Save</Button>
+                        <Button color="darkBlue" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>

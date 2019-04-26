@@ -10,10 +10,10 @@ class Topbar extends Component {
                     <Col className="col-md-10">
                     </Col>
                     <Col className="d-flex justify-content-end col-md-1 oszlop">
-                        test
+                        teacher
                     </Col>
                     <Col className="col-md-1">
-                        <Button color="lightBlue gomb">
+                        <Button color="lightBlue">
                             <i className="fa fa-sign-out" aria-hidden="true"/>
                         </Button>
                     </Col>

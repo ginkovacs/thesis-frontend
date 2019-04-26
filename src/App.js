@@ -11,7 +11,7 @@ import {DefaultLayout} from './containers';
 import {Page404, Page500,
         Login, Register,
         Teacher, Course, Test,
-        Student} from './views/Pages';
+        Student, MyCourse, MyTest} from './views/Pages';
 import Appmine from "./views/Base/Appmine";
 
 class App extends Component {
@@ -29,6 +29,8 @@ class App extends Component {
                     <Route exact path="/course/:id" name='Course' component={Course}/>
                     <Route exact path="/test/:id" name='Test' component={Test}/>
                     <Route exact path="/student" name='Student' component={Student}/>
+                    <Route exact path="/MyCourse/:id" name='MyCourse' component={MyCourse}/>
+                    <Route exact path="/MyTest/:id" name='MyTest' component={MyTest}/>
                 </Switch>
             </BrowserRouter>
         );

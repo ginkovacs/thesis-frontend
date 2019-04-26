@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Form, Row } from 'reactstrap';
+import { Card, CardBody, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Form, Row, Button} from 'reactstrap';
 import request from "superagent";
-import RegButton from './RegButton';
 import {RESTHOST} from '../../../constants';
 
 
@@ -58,10 +57,10 @@ class Register extends Component{
     render() {
         return (
             <div className="app flex-row align-items-center">
-                <Container>
+                <Container >
                     <Row className="justify-content-center">
                         <Col md="6">
-                            <Card className="mx-4">
+                            <Card className="mx-4" color="lightBlue">
                                 <CardBody className="p-4">
                                     <Form onSubmit={this.handleSubmit}>
                                         <h1>Register</h1>
@@ -69,7 +68,7 @@ class Register extends Component{
                                         <InputGroup className="mb-3">
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText>
-                                                    <i className="icon-user"></i>
+                                                    <i className="fa fa-user" aria-hidden="true"/>
                                                 </InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="text" placeholder="Username" autoComplete="username"
@@ -78,7 +77,9 @@ class Register extends Component{
 
                                         <InputGroup className="mb-3">
                                             <InputGroupAddon addonType="prepend">
-                                                <InputGroupText>@</InputGroupText>
+                                                <InputGroupText>
+                                                    <i class="fa fa-at" aria-hidden="true"/>
+                                                </InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="text" placeholder="Email" autoComplete="email"
                                                    value={this.state.email} onChange={this.emailChange.bind(this)}/>
@@ -87,7 +88,7 @@ class Register extends Component{
                                         <InputGroup className="mb-3">
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText>
-                                                    <i className="icon-lock"></i>
+                                                    <i className="fa fa-lock" aria-hidden="true"/>
                                                 </InputGroupText>
                                             </InputGroupAddon>
                                             <Input type="password" placeholder="Password" autoComplete="new-password"
@@ -97,14 +98,14 @@ class Register extends Component{
                                         <InputGroup className="mb-4">
                                             <InputGroupAddon addonType="prepend">
                                                 <InputGroupText>
-                                                    <i className="icon-lock"></i>
+                                                    <i className="fa fa-lock" aria-hidden="true"/>
                                                 </InputGroupText>
                                             </InputGroupAddon>
 
                                             <Input type="password" placeholder="Repeat password" autoComplete="new-password"
                                                 value={this.state.confirmPw} onChange={this.confirmPwChange.bind(this)}/>
                                         </InputGroup>
-                                        <RegButton success={this.state.success}/>
+                                        <Button color="darkBlue" type="submit"> Create Account </Button>
                                     </Form>
                                 </CardBody>
                             </Card>
@@ -117,6 +118,3 @@ class Register extends Component{
 }
 
 export default Register;
-/*
-<RegSuccessButton success={this.success}/>
- */

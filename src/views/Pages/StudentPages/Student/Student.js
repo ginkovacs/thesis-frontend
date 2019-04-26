@@ -3,6 +3,7 @@ import {ACCESS_TOKEN, RESTHOST} from "../../../../constants/index";
 import Topbar from '../../../Global/Topbar/Topbar';
 import {get} from "../../../../user/UserUtils";
 import {Card, CardHeader, CardBody, Row, Col} from "reactstrap";
+import "./Student.css";
 
 export class Student extends Component {
 
@@ -55,7 +56,11 @@ export class Student extends Component {
                     <Col md="4">
                         <Card onClick={() => this.toCourse(s.id)}>
                             <CardHeader className="cardH">
-                                {s.name}
+                                <Row>
+                                    <Col>
+                                        <h5 className="name">{s.name}</h5>
+                                    </Col>
+                                </Row>
                             </CardHeader>
                             <CardBody>{s.description}</CardBody>
                         </Card>
@@ -68,6 +73,7 @@ export class Student extends Component {
     }
 
     renderCards = () => {
+        console.log(this.state.courses);
         let rows = [];
 
         let count = this.state.courses.length;
@@ -87,7 +93,7 @@ export class Student extends Component {
     }
 
     toCourse(id) {
-        this.props.history.push("/course/" + id);
+        this.props.history.push("/MyCourse/" + id);
     }
 
     render () {

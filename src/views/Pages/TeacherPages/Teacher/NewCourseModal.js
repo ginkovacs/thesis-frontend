@@ -77,8 +77,8 @@ export class NewCourseModal extends Component {
                         </Form>
                     </ModalBody>
                     <ModalFooter>
-                        <Button onClick={this.addCourse}>Save</Button>
-                        <Button onClick={this.toggle}>Cancel</Button>
+                        <Button color="lightBlue" onClick={this.addCourse}>Save</Button>
+                        <Button color="darkBlue" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>
